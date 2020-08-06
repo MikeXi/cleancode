@@ -15,17 +15,30 @@ public abstract class Account implements User {
     public Level getActivityLevel() {
         validateAccountForLevel();
 
-        int reviewAnswers = 0;
-        for (Review r : getAllReviews())
-            reviewAnswers += r.getAnswers().size();
+        int reviewAnswers = getReviewAnswers();
 
         return getLevelByReviews(reviewAnswers);
 
     }
 
+    private int getReviewAnswers() {
+        int reviewAnswers = 0;
+        for (Review r : getAllReviews())
+            reviewAnswers += r.getAnswers().size();
+        return reviewAnswers;
+    }
+
     private void validateAccountForLevel() {
-        if (!isRegistered() || getVisitNumber() <= 0)
+        if (isNotActiveAccount())
             throw new NotActivUserException();
+    }
+
+    private boolean isNotActiveAccount() {
+        return isNotRegistered() || getVisitNumber() <= 0;
+    }
+
+    private boolean isNotRegistered() {
+        return !isRegistered();
     }
 
     private Level getLevelByReviews(int reviewAnswers) {

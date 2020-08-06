@@ -9,14 +9,14 @@ public class Formatter {
 
 
     public String formatKeyValue(String key, String value) {
-        String content = key + UNDERSCORE + value;
-        String minuses = repeat(MINUS, content.length());
+        String keyValue = key + UNDERSCORE + value;
+        String minuses = repeatSymbol(MINUS, keyValue.length());
         return PLUS +  minuses + PLUS + "\n"
-                + PIPE + content + PIPE + "\n"
+                + PIPE + keyValue + PIPE + "\n"
                 + PLUS + minuses + PLUS + "\n";
     }
 
-    private String repeat(String symbol, int times) {
+    private String repeatSymbol(String symbol, int times) {
         String result = "";
         for (int i = 0; i < times; i++)
             result += symbol;

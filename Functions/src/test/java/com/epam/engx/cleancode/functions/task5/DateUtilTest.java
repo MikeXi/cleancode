@@ -31,11 +31,11 @@ public class DateUtilTest {
     }
 
     private Date getDirectlyIncrementedDate(Date date) {
-        return dateUtil.changeToMidnight(date, true);
+        return dateUtil.getIncrementedDate(date);
     }
 
     private Date getInverseIncrementedDate(Date date) {
-        return dateUtil.changeToMidnight(date, false);
+        return dateUtil.getDecrementedDate(date);
     }
 
     public Date create(int year, int month, int day) {

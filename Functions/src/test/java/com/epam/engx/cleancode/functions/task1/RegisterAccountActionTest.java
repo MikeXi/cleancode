@@ -21,13 +21,13 @@ public class RegisterAccountActionTest {
 
     @Test
     public void shouldRegisterAccount() {
-        registerAccountAction.register(validAccountStub);
+        registerAccountAction.registerAccount(validAccountStub);
         accountManagerMock.assertAccountRegistered(validAccountStub);
     }
 
     @Test
     public void shouldPopulateAccountWhenCreate() {
-        registerAccountAction.register(validAccountMock);
+        registerAccountAction.registerAccount(validAccountMock);
         validAccountMock.assertCreationDateExist();
         validAccountMock.assertHomeAddressInAddresses();
         validAccountMock.assertWorkAddressInAddresses();
@@ -36,19 +36,19 @@ public class RegisterAccountActionTest {
 
     @Test (expected = WrongAccountNameException.class)
     public void shouldThrowExceptionWhenNameIsTooShort() {
-        registerAccountAction.register(new ShortNameAccountStub());
+        registerAccountAction.registerAccount(new ShortNameAccountStub());
     }
 
     @Test (expected = WrongPasswordException.class)
     public void shouldThrowExceptionWhenPasswordIsTooShort() {
-        registerAccountAction.register(new ShortPasswordAccountStub());
+        registerAccountAction.registerAccount(new ShortPasswordAccountStub());
     }
 
 
     @Test (expected = WrongPasswordException.class)
     public void shouldThrowExceptionWhenPasswordIsNotOk() {
         registerAccountAction.setPasswordChecker(new NotOkPasswordChecker());
-        registerAccountAction.register(validAccountStub);
+        registerAccountAction.registerAccount(validAccountStub);
     }
 
 }

@@ -1,5 +1,9 @@
 package com.epam.engx.cleancode.errorhandling.task1;
 
+import com.epam.engx.cleancode.errorhandling.task1.exceptions.EmptyOrdersException;
+import com.epam.engx.cleancode.errorhandling.task1.exceptions.InvalidOrderTotalAmountException;
+import com.epam.engx.cleancode.errorhandling.task1.exceptions.InvalidUserDaoException;
+import com.epam.engx.cleancode.errorhandling.task1.exceptions.InvalidUserException;
 import com.epam.engx.cleancode.errorhandling.task1.thirdpartyjar.Order;
 import com.epam.engx.cleancode.errorhandling.task1.thirdpartyjar.User;
 import com.epam.engx.cleancode.errorhandling.task1.thirdpartyjar.UserDao;
@@ -10,32 +14,52 @@ public class UserReportBuilder {
 
     private UserDao userDao;
 
-    public Double getUserTotalOrderAmount(String userId) {
+    public Double getUserTotalOrderAmount(String userId){
 
-        if (userDao == null)
-            return null;
+        validateUserDao();
 
         User user = userDao.getUser(userId);
-        if (user == null)
-            return -1.0;
+        validateUser(user);
 
         List<Order> orders = user.getAllOrders();
 
-        if (orders.isEmpty())
-            return -2.0;
+        validateOrders(orders);
 
+        Double sum = calculateOrdersTotalAmount(orders);
+
+        return sum;
+    }
+
+    private Double calculateOrdersTotalAmount(List<Order> orders){
         Double sum = 0.0;
         for (Order order : orders) {
-
             if (order.isSubmitted()) {
                 Double total = order.total();
-                if (total < 0)
-                    return -3.0;
+                validateOrderTotalAmount(total);
                 sum += total;
             }
         }
-
         return sum;
+    }
+
+    private void validateOrderTotalAmount(Double total) {
+        if (total < 0)
+            throw new InvalidOrderTotalAmountException();
+    }
+
+    private void validateOrders(List<Order> orders) {
+        if (orders.isEmpty())
+            throw new EmptyOrdersException();
+    }
+
+    private void validateUser(User user){
+        if (user == null)
+            throw new InvalidUserException();
+    }
+
+    private void validateUserDao() {
+        if (userDao == null)
+            throw new InvalidUserDaoException();
     }
 
 

@@ -1,33 +1,32 @@
 package com.epam.engx.cleancode.naming.task2;
 
 import java.util.Arrays;
-import java.util.Date;
 
 public class User {
 
-	protected boolean bAdmin = false;
+	protected static final boolean IS_ADMIN_USER = false;
 
-	private String dBirth;
+	private String birthday;
 
-	private String sName;
+	private String name;
 
-	private User[] subordinateArray;
+	private User[] users;
 
-	private int iR;
+	private int rating;
 
-	public User(String sName, String dBirth, User[] subordinateArray) {
-		this.dBirth = dBirth;
-		this.sName = sName;
-		this.subordinateArray = subordinateArray;
+	public User(String name, String birthday, User[] users) {
+		this.birthday = birthday;
+		this.name = name;
+		this.users = users;
 	}
 
 	@Override
 	public String toString() {
-		return "User [dateOfBirth=" + dBirth + ", name=" + sName + ", isAdmin=" + bAdmin + ", subordinates="
-				+ Arrays.toString(subordinateArray) + ", rating=" + iR + "]";
+		return "User [dateOfBirth=" + birthday + ", name=" + name + ", isAdmin=" + IS_ADMIN_USER + ", subordinates="
+				+ Arrays.toString(users) + ", rating=" + rating + "]";
 	}
 
 	public void setRating(int rating) {
-		this.iR = rating;
+		this.rating = rating;
 	}
 }

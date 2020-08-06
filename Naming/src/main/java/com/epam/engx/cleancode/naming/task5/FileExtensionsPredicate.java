@@ -3,17 +3,17 @@ package com.epam.engx.cleancode.naming.task5;
 
 import com.epam.engx.cleancode.naming.task5.thirdpartyjar.Predicate;
 
-public class FileExtPred implements Predicate<String> {
+public class FileExtensionsPredicate implements Predicate<String> {
 
-    private String[] extns;
+    private String[] extensions;
 
-    FileExtPred(String[] extns) {
-        this.extns = extns;
+    FileExtensionsPredicate(String[] extensions) {
+        this.extensions = extensions;
     }
 
     @Override
     public boolean test(String fileName) {
-        for (String extension : extns) {
+        for (String extension : extensions) {
             if (fileName.toLowerCase().endsWith(extension)) {
                 return true;
             }

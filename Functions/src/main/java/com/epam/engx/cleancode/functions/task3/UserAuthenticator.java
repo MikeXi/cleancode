@@ -13,11 +13,15 @@ public abstract class UserAuthenticator implements UserService {
     }
 
     private User loginUser(User user, String password) {
-        if (isPasswordCorrect(user, password)) {
-            sessionManager.setCurrentUser(user);
-            return user;
+        if (isInvalidPassword(user, password)) {
+            throw new InvalidPasswordException();
         }
-        return null;
+        sessionManager.setCurrentUser(user);
+        return user;
+    }
+
+    private boolean isInvalidPassword(User user, String password){
+        return !isPasswordCorrect(user, password);
     }
 
     public void setSessionManager(SessionManager sessionManager) {
