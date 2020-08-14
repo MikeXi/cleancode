@@ -5,18 +5,18 @@ import com.epam.engx.cleancode.comments.task1.thirdpartyjar.InvalidInputExceptio
 public class MortgageInstallmentCalculator {
 
     public static double calculateMonthlyPayment(
-            int principalAmount, int termInYears, double rateOfInterest) {
+            int principalAmount, int termInYears, double annualInterestRateInPercent) {
 
-        validateVariables(principalAmount, termInYears, rateOfInterest);
+        validateVariables(principalAmount, termInYears, annualInterestRateInPercent);
 
-        rateOfInterest /= 100.0;
+        annualInterestRateInPercent /= 100.0;
 
         double termInMonths = termInYears * 12;
 
-        if(rateOfInterest==0)
+        if(annualInterestRateInPercent==0)
             return  principalAmount/termInMonths;
 
-        double rateOfInterestMonthly = rateOfInterest / 12.0;
+        double rateOfInterestMonthly = annualInterestRateInPercent / 12.0;
 
         double monthlyPayment = (principalAmount * rateOfInterestMonthly) / (1 - Math.pow(1 + rateOfInterestMonthly, -termInMonths));
 
